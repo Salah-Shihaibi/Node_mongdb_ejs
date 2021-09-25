@@ -18,7 +18,7 @@ const Post = require("../model/post");
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find();
-    res.render("pages/posts", {
+    res.render("posts", {
       posts: posts.reverse(),
     });
   } catch (err) {
@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
   try {
     if (post.title.length < 3 || post.description.length < 3){
       const posts = await Post.find();
-      res.render("pages/posts", {
+      res.render("posts", {
         posts: posts.reverse(),
         err: 'Title and description must be added'
       });
