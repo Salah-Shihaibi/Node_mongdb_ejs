@@ -43,6 +43,10 @@ router.post("/", async (req, res) => {
     else {
       const savedPost = await post.save();
       await hideAllAdjustments();
+      req.flash(
+        'success_msg',
+        'Post is added'
+      );
       res.redirect('/posts');
     }
   } catch (err) {
@@ -63,6 +67,10 @@ router.get("/delete/:id", async (req, res) => {
   try {
     const removePost = await Post.remove({ _id: req.params.id });
     await hideAllAdjustments();
+    req.flash(
+      'success_msg',
+      'Post deleted'
+    );
     res.redirect('/posts');
   } catch (err) {
     res.json({ msg: err });
@@ -72,7 +80,7 @@ router.get("/delete/:id", async (req, res) => {
 router.get("/adjust/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-
+    
     const updatePost = await Post.updateOne(
       { _id: req.params.id },
       {
@@ -99,6 +107,10 @@ router.post("/patch/:id", async (req, res) => {
       }
     );
     await hideAllAdjustments();
+    req.flash(
+      'success_msg',
+      'Post edited'
+    );
     res.redirect('/posts#'+ req.params.id);
   } catch (err) {
     res.json({ msg: err });
