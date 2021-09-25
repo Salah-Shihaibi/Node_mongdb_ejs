@@ -34,9 +34,7 @@
       </nav>
     </header>
     <h2>Add Post</h2>
-    <% if(typeof err != 'undefined'){%>
-      <p class="btn btn-warning"><%= err%></p>
-    <% };%>  
+    <%- include ("./partials/messages"); %>
     <form action="/posts" method="POST">
       <div class="form-group">
         <label for="title">Title</label>

@@ -43,11 +43,7 @@ router.post("/", async (req, res) => {
     else {
       const savedPost = await post.save();
       await hideAllAdjustments();
-      res.render("pages/changeRoutes", {
-        url: "/posts",
-        id: "post",
-        runIt: "run();",
-      });
+      res.redirect('/posts');
     }
   } catch (err) {
     res.json({ msg: err });
@@ -67,11 +63,7 @@ router.get("/delete/:id", async (req, res) => {
   try {
     const removePost = await Post.remove({ _id: req.params.id });
     await hideAllAdjustments();
-    res.render("pages/changeRoutes", {
-      url: "/posts",
-      id: "post",
-      runIt: "run();",
-    });
+    res.redirect('/posts');
   } catch (err) {
     res.json({ msg: err });
   }
@@ -89,11 +81,7 @@ router.get("/adjust/:id", async (req, res) => {
         },
       }
     );
-    res.render("pages/changeRoutes", {
-      url: "/posts#" + req.params.id,
-      id: "post",
-      runIt: "run();",
-    });
+    res.redirect('/posts#'+ req.params.id);
   } catch (err) {
     res.json({ msg: err });
   }
@@ -111,11 +99,7 @@ router.post("/patch/:id", async (req, res) => {
       }
     );
     await hideAllAdjustments();
-    res.render("pages/changeRoutes", {
-      url: "/posts#" + req.params.id,
-      id: "post",
-      runIt: "run();",
-    });
+    res.redirect('/posts#'+ req.params.id);
   } catch (err) {
     res.json({ msg: err });
   }
