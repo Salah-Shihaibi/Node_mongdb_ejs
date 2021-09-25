@@ -1,6 +1,6 @@
-    <h4 class = 'btn btn-info m-2'>Add Post</h4>
-    <%- include ("./partials/messages"); %>
-    <form action="/posts" method="POST">
+   <%- include ("./partials/messages"); %>
+   <h4 id = 'showPostForm' class = 'btn btn-info m-2'>Add Post</h4>
+    <form style = "display : none" id = 'postForm' action="/posts" method="POST">
       <div class="form-group">
         <label for="title">Title</label>
         <input
@@ -33,10 +33,10 @@
         Post: <%= post.description %> <br />
         Date: <%= post.data %>
         <br />
-        <a class="btn btn-danger" href="/posts/delete/<%= post._id %>"
-          >Delete</a
+        <button class="btn btn-danger delete" onClick="deleteThePost('<%= post._id %>')"
+          >Delete</button
         >
-        <a class="btn btn-success" href="/posts/adjust/<%= post._id %>"
+        <a class="btn btn-info" href="/posts/adjust/<%= post._id %>"
           >Adjust</a
         >
         <form style = "display: <%= post.edit ? 'none' : '' %>" action="/posts/patch/<%= post._id %>" method="POST">
@@ -69,4 +69,28 @@
         <% }); %>
       </li>
     </ul>
+    <script>
+      let postFormButton = document.getElementById('showPostForm');
+
+      postFormButton.addEventListener('click', togglePostForm);
+
+      let toggle = true;
+      function togglePostForm() {
+      let postForm = document.getElementById('postForm');
+      if(toggle){
+        postForm.style.display = 'block';
+        toggle = !toggle
+      } else {
+        postForm.style.display = 'none';
+        toggle = !toggle
+      } 
+    }
+
+    function deleteThePost(id){
+      if(confirm('Are You Sure you want to delete the post?')){
+        window.location= '/posts/delete/'+id
+      }
+    }
+    </script>
+
     
